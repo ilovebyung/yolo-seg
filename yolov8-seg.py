@@ -17,15 +17,13 @@ for result in results:
     xy = result.masks.xy        # x,y segments (pixels), List[segment] * N
     xyn = result.masks.xyn       # x,y segments (normalized), List[segment] * N
 
-    print(data)
-
-
 # get a sample of uint8
+
 image = cv2.imread(file,0)
 h, w = image.shape
-cv2.imshow('image',image)
-cv2.waitKey(0)
-
+plt.imshow(image, cmap='gray')
+# cv2.imshow('image',image)
+# cv2.waitKey(0)
 # image = image.astype(np.float32)
 
 # generate mask
@@ -36,13 +34,15 @@ mask = mask.cpu().numpy()*255
 # resize image
 mask = cv2.resize(mask, (w,h), interpolation = cv2.INTER_AREA)
 mask = mask.astype(np.uint8)
-cv2.imshow('mask',mask)
-cv2.waitKey(0)
+plt.imshow(mask, cmap='gray')
+# cv2.imshow('mask',mask)
+# cv2.waitKey(0)
 
 # Apply the mask to the image
 masked_image = cv2.bitwise_and(image, mask)
-cv2.imwrite('masked_image.jpg', masked_image)
+plt.imshow(masked_image, cmap='gray')
 
+cv2.imwrite('masked_image.jpg', masked_image)
 masked_image = Image.open('masked_image.jpg')
 masked_image.show()
 
