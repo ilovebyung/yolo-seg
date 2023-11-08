@@ -1,0 +1,2 @@
+sqlite3 database.db ".backup backup.bak"
+cp database.db database.bak
