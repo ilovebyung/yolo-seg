@@ -3,7 +3,7 @@ import numpy as np
 from ultralytics import YOLO
 
 # Load the YOLOv8 model
-model = yolov8.YOLOv8("yolov8n.pt")
+model = YOLO('yolov8s-seg.pt')
 
 # Predict the segmentation masks for the image
 image = cv2.imread("../0.jpg")
