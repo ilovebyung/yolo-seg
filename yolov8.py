@@ -1,9 +1,11 @@
 from ultralytics import YOLO
 from PIL import Image
 import cv2
+import matplotlib.pyplot as plt
 
 model = YOLO('yolov8s.pt')
 image = Image.open("park.jpg")
+plt.imshow(image)
 results = model.predict(source=image, save=True)  # save plotted images
 
 for result in results:

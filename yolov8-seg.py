@@ -46,5 +46,12 @@ cv2.imwrite('masked_image.jpg', masked_image)
 masked_image = Image.open('masked_image.jpg')
 masked_image.show()
 
+# Count the number of elements that are 0
+area_of_zeros = np.count_nonzero(mask == 0)
 
+# Print the area
+print(area_of_zeros)
 
+# Unique values
+unique_values = np.unique(mask)
+print(unique_values)
