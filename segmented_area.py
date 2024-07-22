@@ -8,7 +8,6 @@ file = 'sample.jpg'
 
 # get a sample of uint8
 image = cv2.imread(file)
-# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 plt.imshow(image, cmap='gray')
 h, w, c = image.shape
 
@@ -34,6 +33,7 @@ mask = mask.astype(np.uint8)
 plt.imshow(mask, cmap='gray')
 
 # Apply the mask to the image
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 masked_image = cv2.bitwise_and(image, mask)
 plt.imshow(masked_image, cmap='gray')
 
