@@ -10,7 +10,7 @@ file = 'sample.jpg'
 image = cv2.imread(file)
 # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 plt.imshow(image, cmap='gray')
-h, w = image.shape
+h, w, c = image.shape
 
 # make a prediction
 model = YOLO('best.pt')
