@@ -8,7 +8,7 @@ file = 'sample.jpg'
 
 # get a sample of uint8
 image = cv2.imread(file)
-image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+# image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 plt.imshow(image, cmap='gray')
 h, w = image.shape
 
@@ -46,3 +46,7 @@ brightness = np.median(masked_image[masked_image != 0]).astype('uint8')
 print(brightness)
 
 
+# Visualize the difference
+cv2.imwrite('masked_image.jpg', masked_image)
+import leafmap
+leafmap.image_comparison
