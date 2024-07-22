@@ -35,6 +35,7 @@ plt.imshow(mask, cmap='gray')
 # Apply the mask to the image
 image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 masked_image = cv2.bitwise_and(image, mask)
+cv2.imwrite('masked_image.jpg', masked_image)
 plt.imshow(masked_image, cmap='gray')
 
 # Calculate area  
@@ -45,8 +46,3 @@ print(area)
 brightness = np.median(masked_image[masked_image != 0]).astype('uint8')
 print(brightness)
 
-
-# Visualize the difference
-cv2.imwrite('masked_image.jpg', masked_image)
-import leafmap
-leafmap.image_comparison
