@@ -9,7 +9,7 @@ file = 'sample.jpg'
 # image = Image.open("park.jpg")
 model = YOLO('best.pt')
 image = Image.open(file)
-results = model.predict(source=image, conf=0.8)  # save plotted images
+results = model.predict(source=image, show=True, conf=0.8)  # save plotted images
 
 for result in results:
     # Segmentation
