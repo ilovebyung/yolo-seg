@@ -1,21 +1,48 @@
+from ultralytics import YOLO
+from PIL import Image
+import matplotlib.pyplot as plt
 import cv2
 import numpy as np
-from ultralytics import YOLO
 
-# Load the YOLOv8 model
-model = YOLO('yolov8s-seg.pt')
+file = 'sample.jpg'
 
-# Predict the segmentation masks for the image
-image = cv2.imread("../0.jpg")
-masks = model(image)
+# get a sample of uint8
+image = cv2.imread(file)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+plt.imshow(image, cmap='gray')
+h, w = image.shape
 
-# Get the segmentation mask for the desired object
-desired_object_mask = masks[0][0]
+# make a prediction
+model = YOLO('best.pt')
+results = model.predict(source=image, conf=0.8)  # save plotted images
 
-# Extract the segmented area from the image using the segmentation mask
-segmented_area = cv2.bitwise_and(image, image, mask=desired_object_mask)
+for result in results:
+    # Segmentation
+    data = result.masks.data      # masks, (N, H, W)
+    xy = result.masks.xy        # x,y segments (pixels), List[segment] * N
+    xyn = result.masks.xyn       # x,y segments (normalized), List[segment] * N
 
-# Display the segmented area
-cv2.imshow("Segmented Area", segmented_area)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+
+# generate mask
+mask = data[0]
+# Convert the tensor to a NumPy array
+mask = mask.cpu().numpy()*255
+
+# resize image
+mask = cv2.resize(mask, (w,h), interpolation = cv2.INTER_AREA)
+mask = mask.astype(np.uint8)
+plt.imshow(mask, cmap='gray')
+
+# Apply the mask to the image
+masked_image = cv2.bitwise_and(image, mask)
+plt.imshow(masked_image, cmap='gray')
+
+# Calculate area  
+area = np.count_nonzero(mask == 0)
+print(area)
+
+# Calculate brightness excluding masked area 
+brightness = np.median(masked_image[masked_image != 0]).astype('uint8')
+print(brightness)
+
+
