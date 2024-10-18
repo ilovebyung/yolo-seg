@@ -27,11 +27,11 @@ def get_filename():
   filename = now.strftime("%Y%m%d") + '_' +  now.strftime("%H%M%S") + '.png'
   return filename
 
-def sound_alarm(duration):
+def sound_alarm(size):
     # Generate a simple sine wave
     sample_rate = 44100 
-    frequency = 440 * duration
-    t = np.linspace(0, duration, int(sample_rate * duration))
+    frequency = 440 * size
+    t = np.linspace(0, 1, int(sample_rate))
     waveform = 0.5 * np.sin(2 * np.pi * frequency * t)
     
     # Play the sound
