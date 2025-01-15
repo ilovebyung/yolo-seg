@@ -4,9 +4,14 @@ import numpy as np
 
 # Load the YOLOv8n model
 model = YOLO("yolov8n.pt")
+# model = YOLO("yolo11n.onnx")
+
+# Export the model
+# model.export(format="onnx")
 
 # Initialize the webcam
 cap = cv2.VideoCapture(0)
+speeds = []
 
 while True:
     # Read a frame from the webcam
@@ -15,7 +20,8 @@ while True:
         break
 
     # Run YOLOv8 inference on the frame
-    results = model(frame)
+    results = model(frame, imgsz=320)
+    speeds.append(results[0].speed['inference'])
 
     # Visualize the results on the frame
     for result in results:
@@ -33,7 +39,7 @@ while True:
             cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
     # Display the frame
-    cv2.imshow("YOLOv8 Inference", frame)
+    cv2.imshow("YOLO Inference", frame)
 
     # Break the loop if 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -42,3 +48,4 @@ while True:
 # Release the webcam and close all windows
 cap.release()
 cv2.destroyAllWindows()
+print(sum(speeds)/len(speeds))

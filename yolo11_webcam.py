@@ -11,6 +11,10 @@ model = YOLO("yolo11n.pt")
 
 # Initialize the webcam
 cap = cv2.VideoCapture(0)
+<<<<<<< HEAD
+speeds = []
+=======
+>>>>>>> 177f21fd9ac76f58dd864e07510abd02eaf94b87
 
 while True:
     # Read a frame from the webcam
@@ -18,8 +22,14 @@ while True:
     if not ret:
         break
 
+<<<<<<< HEAD
+    # Run YOLO inference on the frame
+    results = model(frame, imgsz=320)
+    speeds.append(results[0].speed['inference'])
+=======
     # Run YOLOv8 inference on the frame
     results = model(frame, imgsz=320)
+>>>>>>> 177f21fd9ac76f58dd864e07510abd02eaf94b87
 
     # Visualize the results on the frame
     for result in results:
@@ -46,3 +56,7 @@ while True:
 # Release the webcam and close all windows
 cap.release()
 cv2.destroyAllWindows()
+<<<<<<< HEAD
+print(sum(speeds)/len(speeds))
+=======
+>>>>>>> 177f21fd9ac76f58dd864e07510abd02eaf94b87
