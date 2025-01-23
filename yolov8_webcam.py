@@ -4,13 +4,10 @@ import numpy as np
 
 # Load the YOLOv8n model
 model = YOLO("yolov8n.pt")
-# model = YOLO("yolo11n.onnx")
-
-# Export the model
-# model.export(format="onnx")
 
 # Initialize the webcam
 cap = cv2.VideoCapture(0)
+speeds = []
 speeds = []
 
 while True:
@@ -20,6 +17,8 @@ while True:
         break
 
     # Run YOLOv8 inference on the frame
+    results = model(frame, imgsz=320)
+    speeds.append(results[0].speed['inference'])
     results = model(frame, imgsz=320)
     speeds.append(results[0].speed['inference'])
 
@@ -48,4 +47,5 @@ while True:
 # Release the webcam and close all windows
 cap.release()
 cv2.destroyAllWindows()
-print(sum(speeds)/len(speeds))
+print("YOLOv8 Inference", sum(speeds)/len(speeds))
+
