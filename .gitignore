@@ -48,11 +48,12 @@ dist/**
 *.xlf
 package.nls.*.json
 l10n/
-# images
+# images & videos
 *.jpg
 *.JPG
 *.jpeg
 *.png
 *.PNG
+*.mp4
 # deeplearning
 *.pt
