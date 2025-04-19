@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import numpy as np
 
 # Load the YOLOv8n model
-#model = YOLO("yolov8n.pt")
+#model = YOLO('yolov8m-seg.pt')
 model = YOLO("yolo11n.pt")
 
 # Export the model
